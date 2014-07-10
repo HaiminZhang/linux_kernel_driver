@@ -33,7 +33,7 @@ int main(void)
 		fds.events = POLLIN;
 
 		printf("poll() ...\n");
-		retval = poll(&fds, 1, 5 * 1000);
+		retval = poll(&fds, 1, 5 * 1000); // 5秒 timeout
 		if (retval == -1) {
 			perror("poll");
 			break;

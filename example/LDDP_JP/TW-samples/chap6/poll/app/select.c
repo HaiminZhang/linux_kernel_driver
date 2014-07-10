@@ -32,7 +32,7 @@ int main(void)
 	do {
 		FD_ZERO(&rfds);
 		FD_SET(fd, &rfds);
-		tv.tv_sec = 5;
+		tv.tv_sec = 5;  // timeout 5秒
 		tv.tv_usec = 0;
 
 		printf("select() ...\n");

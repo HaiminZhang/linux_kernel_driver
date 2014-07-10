@@ -58,6 +58,7 @@ unsigned int devone_poll(struct file *filp, poll_table *wait)
 	unsigned int mask = POLLOUT | POLLWRNORM;
 
 	printk("%s called\n", __func__);
+    printk(KERN_ALERT "0x%08X\n", __builtin_return_address(0));
 
 	if (dev == NULL)
 		return -EBADFD;
