@@ -10,6 +10,12 @@ MODULE_LICENSE("Dual BSD/GPL");
 #define DUMMY_BUFSIZ 4096
 static char dummy[DUMMY_BUFSIZ];
 
+/*執行cat /proc/xxxx時,什麼時候調用read_proc,什麼時候調用proc_fops->read呢?
+ * 答案:
+ * 在註冊entry的時候，如果提供read_proc,讀文件時調用路徑為
+ * proc_file_operations->read->proc_file_read->read_proc
+ * */
+
 static int sample_read_proc(char *page, char **start, off_t off, 
 		int count, int *eof, void *data)
 {
