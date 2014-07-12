@@ -2,8 +2,7 @@
 #include <linux/kernel.h>
 
 //exported function
-static void my_exp_function(void)
-{
+static void my_exp_function(void) {
     printk(KERN_INFO "A function exported to the external world...\n");
 }
 
@@ -16,14 +15,12 @@ module_param(dolphin, int, 0);
 static char demodev_str[64] = "kernel module:demodev";
 module_param_string(demodev_str, demodev_str, sizeof(demodev_str), 0);//(name, string, length, perm)
 
-static int demodev_init(void)
-{
-    printk(KERN_INFO "demodev_init(): dolphin=%d, demodev_str=%s\n", dolphin, demodev_str);  
+static int demodev_init(void) {
+    printk(KERN_INFO "demodev_init(): dolphin=%d, demodev_str=%s\n", dolphin, demodev_str);
     return 0;
 }
 
-static void demodev_exit(void)
-{
+static void demodev_exit(void) {
     printk(KERN_INFO "demodev_exit()\n");
 }
 
