@@ -21,6 +21,8 @@ static int sample_read_proc(char *page, char **start, off_t off,
 {
 	int len;
 
+    dump_stack();
+
 	printk("page=%p *start=%p off=%d count=%d *eof=%d data=%p\n",
 			page, *start, (int)off, count, *eof, data);
 
