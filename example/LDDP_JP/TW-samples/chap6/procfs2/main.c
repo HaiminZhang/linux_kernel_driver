@@ -64,7 +64,7 @@ static int sample_init(void)
 
 	entry->read_proc = sample_proc_read;
 	entry->write_proc = sample_proc_write;
-	entry->owner = THIS_MODULE;
+	// entry->owner = THIS_MODULE;
 
 	printk("driver loaded\n");
 		

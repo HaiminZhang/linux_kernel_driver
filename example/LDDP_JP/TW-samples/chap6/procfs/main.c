@@ -21,6 +21,8 @@ static int sample_read_proc(char *page, char **start, off_t off,
 {
 	int len;
 
+    dump_stack();
+
 	printk("page=%p *start=%p off=%d count=%d *eof=%d data=%p\n",
 			page, *start, (int)off, count, *eof, data);
 
@@ -28,7 +30,7 @@ static int sample_read_proc(char *page, char **start, off_t off,
 	if (len > PAGE_SIZE)
 		return -ENOBUFS;
 
-	memcpy(page, dummy, len);
+	memcpy(page, dummy, len);  // dump 內容ABC~Z, totoal 4096byte 存放到page , user space 在讀取page , len = 4096
 	*eof = 1;
 
 	printk("len=%d (%s)\n", len, __func__);

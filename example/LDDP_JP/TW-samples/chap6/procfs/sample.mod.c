@@ -21,6 +21,7 @@ __attribute__((section("__versions"))) = {
 	{ 0xa60f9d25, "remove_proc_entry" },
 	{ 0x27e1a049, "printk" },
 	{ 0xb4390f9a, "mcount" },
+	{ 0x6b2dc060, "dump_stack" },
 	{ 0x3021c756, "create_proc_entry" },
 };
 
@@ -30,4 +31,4 @@ __attribute__((section(".modinfo"))) =
 "depends=";
 
 
-MODULE_INFO(srcversion, "5B9CEEAABF5230A3560AB56");
+MODULE_INFO(srcversion, "406DAC495A7B01F2D55D24A");
