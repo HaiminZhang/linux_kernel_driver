@@ -11,48 +11,49 @@
 #include <linux/i2c.h>
 #include <linux/i2c-dev.h>
 
-int main(int argc, char **argv)
-{
-	struct i2c_rdwr_ioctl_data dataWrite;
-	int fd;
-	unsigned int slaveAddr, regAddr,value; 
-	int ret;
-	
-	if (argc < 4){
-		printf("input slaveAddr  regAddr value\n");
-		return 0;
-	}
-	
-	fd = open("/dev/i2c-0", O_RDWR);
+int main(int argc, char** argv) {
+    struct i2c_rdwr_ioctl_data dataWrite;
+    int fd;
+    unsigned int slaveAddr, regAddr, value;
+    int ret;
 
-	if (!fd){
-		printf("open /dev/i2c-0 fail\n");
-		return 0;
-	}
+    if (argc < 4) {
+        printf("input slaveAddr  regAddr value\n");
+        return 0;
+    }
 
-	sscanf(argv[1], "%x", &slaveAddr);
-	sscanf(argv[2], "%x", &regAddr);
-	sscanf(argv[3], "%x", &value);
-	
-	dataWrite.nmsgs = 2;
-	dataWrite.msgs = (struct i2c_msg *)malloc(dataWrite.nmsgs * sizeof(struct i2c_msg));
+    fd = open("/dev/i2c-0", O_RDWR);
 
-	ioctl(fd, I2C_TIMEOUT, 2);//设置超时时间
-	ioctl(fd, I2C_RETRIES, 1);//设置重发次数
+    if (!fd) {
+        printf("open /dev/i2c-0 fail\n");
+        return 0;
+    }
 
-	
-	dataWrite.nmsgs = 1;
-	dataWrite.msgs[0].len = 2;
-	dataWrite.msgs[0].addr = slaveAddr;
-	dataWrite.msgs[0].flags = 0;//写命令
-	dataWrite.msgs[0].buf = (unsigned char*)malloc(2);
-	dataWrite.msgs[0].buf[0] = regAddr;
-	dataWrite.msgs[0].buf[1] = value;
-	
-	ret = ioctl (fd, I2C_RDWR, (unsigned long)&dataWrite);
-	if (ret < 0){
-		printf ("ioctl write error\n");
-	}
-	close(fd);
-	return 0;	
+    sscanf(argv[1], "%x", &slaveAddr);
+    sscanf(argv[2], "%x", &regAddr);
+    sscanf(argv[3], "%x", &value);
+
+    dataWrite.nmsgs = 2;
+    dataWrite.msgs = (struct i2c_msg*)malloc(dataWrite.nmsgs * sizeof(struct i2c_msg));
+
+    ioctl(fd, I2C_TIMEOUT, 2);//设置超时时间
+    ioctl(fd, I2C_RETRIES, 1);//设置重发次数
+
+
+    dataWrite.nmsgs = 1;
+    dataWrite.msgs[0].len = 2;
+    dataWrite.msgs[0].addr = slaveAddr;
+    dataWrite.msgs[0].flags = 0;//写命令
+    dataWrite.msgs[0].buf = (unsigned char*)malloc(2);
+    dataWrite.msgs[0].buf[0] = regAddr;
+    dataWrite.msgs[0].buf[1] = value;
+
+    ret = ioctl(fd, I2C_RDWR, (unsigned long)&dataWrite);
+
+    if (ret < 0) {
+        printf("ioctl write error\n");
+    }
+
+    close(fd);
+    return 0;
 }

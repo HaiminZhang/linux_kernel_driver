@@ -20,53 +20,50 @@ struct work_struct time_work;
 
 unsigned long t = 0;
 
-void time_work_funtion(unsigned long data)
-{
-   
- //  while(flag%2);
+void time_work_funtion(unsigned long data) {
+
+    //  while(flag%2);
 
     t = jiffies;
-    while(time_after(jiffies,t + 15*HZ)!=1);
 
-   // sleep_on_timeout(&wait,2 * HZ);
- 
-    
-    printk("work data :%d,result:%d\n",data);
+    while (time_after(jiffies, t + 15 * HZ) != 1);
+
+    // sleep_on_timeout(&wait,2 * HZ);
+
+
+    printk("work data :%d,result:%d\n", data);
 
 
     //tasklet_schedule(&time_tasklet);
 }
 
 
-void timer_funtion(unsigned long para)
-{
+void timer_funtion(unsigned long para) {
     printk("time:\n");
 
-  //  schedule_work(&time_work);
-    mod_timer(&timer,jiffies + (HZ));
+    //  schedule_work(&time_work);
+    mod_timer(&timer, jiffies + (HZ));
 }
 
 
 
 
-int __init timer_init(void)
-{
-    
+int __init timer_init(void) {
+
     init_timer(&timer);
     timer.data = times;
     timer.expires = jiffies + HZ;
     timer.function = timer_funtion;
-    INIT_WORK(&time_work,(void(*)(void*))time_work_funtion);
-  //  add_timer(&timer);
+    INIT_WORK(&time_work, (void(*)(void*))time_work_funtion);
+    //  add_timer(&timer);
     schedule_work(&time_work);
-   // tasklet_schedule(&time_tasklet);
-  // init_waitqueue_head(&wait);
+    // tasklet_schedule(&time_tasklet);
+    // init_waitqueue_head(&wait);
     return 0;
 }
 
 
-void __exit timer_exit(void)
-{
+void __exit timer_exit(void) {
     del_timer(&timer);
 
     printk("<1>takslet has been destroyed\n");
@@ -78,7 +75,7 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("lxlong");
 MODULE_DESCRIPTION("tasklet test");
 MODULE_ALIAS("wk module");
-module_param(times,int,S_IRUGO);
-MODULE_PARM_DESC(times,"timer set");
+module_param(times, int, S_IRUGO);
+MODULE_PARM_DESC(times, "timer set");
 
 

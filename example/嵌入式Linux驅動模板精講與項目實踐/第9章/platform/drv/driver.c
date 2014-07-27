@@ -7,36 +7,32 @@
 
 
 
-static int my_probe(struct device *dev)
-{
+static int my_probe(struct device* dev) {
     printk("Driver found device which my driver can handle!\n");
     return 0;
 }
 
-static int my_remove(struct device *dev)
-{
+static int my_remove(struct device* dev) {
     printk("Driver found device unpluged!\n");
     return 0;
 }
 
 static struct platform_driver my_driver = {
-	.probe		= my_probe,
-	.remove		= my_remove,
-	.driver		= {
-		.owner	= THIS_MODULE,
-		.name	= "my_dev",
-	},
+    .probe      = my_probe,
+    .remove     = my_remove,
+    .driver     = {
+        .owner  = THIS_MODULE,
+        .name   = "my_dev",
+    },
 };
 
-static int __init my_driver_init(void)
-{       
-        /*注册平台驱动*/
-	return platform_driver_register(&my_driver);
+static int __init my_driver_init(void) {
+    /*注册平台驱动*/
+    return platform_driver_register(&my_driver);
 }
 
-static void my_driver_exit(void)
-{
-	platform_driver_unregister(&my_driver);
+static void my_driver_exit(void) {
+    platform_driver_unregister(&my_driver);
 }
 
 module_init(my_driver_init);

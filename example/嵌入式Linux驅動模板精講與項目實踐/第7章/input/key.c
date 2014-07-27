@@ -26,104 +26,96 @@
 
 
 struct timer_list timer;
-static void __iomem *IMM32;		 
-struct input_dev *dev;		 
+static void __iomem* IMM32;
+struct input_dev* dev;
 
-void timer_funtion(unsigned long para)
-{
+void timer_funtion(unsigned long para) {
     int data;
 
-       data = readl(IMM32 + GPNDAT_OFFSET);
- 
-              if(data & 0x1)//key1
-              {
-                   input_report_key(dev,BTN_0, 1);
+    data = readl(IMM32 + GPNDAT_OFFSET);
 
-              }
-              else
-              {
-                  input_report_key(dev,BTN_0, 0);
-              }
-			if(data & 0x8)//key2
-              {
-                   input_report_key(dev,BTN_3,1);
+    if (data & 0x1) { //key1
+        input_report_key(dev, BTN_0, 1);
 
-              }
-              else
-              {
-                  input_report_key(dev,BTN_3,0);
-              }
+    } else {
+        input_report_key(dev, BTN_0, 0);
+    }
+
+    if (data & 0x8) { //key2
+        input_report_key(dev, BTN_3, 1);
+
+    } else {
+        input_report_key(dev, BTN_3, 0);
+    }
+
     input_sync(dev);
 
-    mod_timer(&timer,jiffies);
+    mod_timer(&timer, jiffies);
 }
 
 
-static int input_open(struct input_dev *dev)
-{
+static int input_open(struct input_dev* dev) {
 
-   printk("open input\n");
+    printk("open input\n");
     return 0;
 }
 
-static void input_close(struct input_dev *dev)
-{
+static void input_close(struct input_dev* dev) {
     return;
 }
 
 
 
-static int __init dev_init(void)
-{
+static int __init dev_init(void) {
     int err;
 
-    IMM32 = ioremap(ADDRESS,8);
-    dev = input_allocate_device();   
-    if (dev == NULL) {   
-        printk(KERN_ERR "Unable to allocate the input device !!/n");   
-        return -ENOMEM;   
-    }   
+    IMM32 = ioremap(ADDRESS, 8);
+    dev = input_allocate_device();
 
-//    dev->evbit[0] = BIT_MASK(EV_KEY);
-//    dev->evbit[1] = BIT_MASK(EV_KEY);
-    set_bit(EV_KEY, dev->evbit);  
-//    set_bit(EV_SYN, dev->evbit);  
-    set_bit(BTN_0,dev->keybit);
-    set_bit(BTN_3,dev->keybit); 
+    if (dev == NULL) {
+        printk(KERN_ERR "Unable to allocate the input device !!/n");
+        return -ENOMEM;
+    }
 
-    dev->name = "lxlInput";   
-    dev->id.bustype = BUS_RS232;   
-    dev->id.vendor = 0x0001;   
-    dev->id.product = 0x0001;   
-    dev->id.version = 0x0100;   
+    //    dev->evbit[0] = BIT_MASK(EV_KEY);
+    //    dev->evbit[1] = BIT_MASK(EV_KEY);
+    set_bit(EV_KEY, dev->evbit);
+    //    set_bit(EV_SYN, dev->evbit);
+    set_bit(BTN_0, dev->keybit);
+    set_bit(BTN_3, dev->keybit);
+
+    dev->name = "lxlInput";
+    dev->id.bustype = BUS_RS232;
+    dev->id.vendor = 0x0001;
+    dev->id.product = 0x0001;
+    dev->id.version = 0x0100;
     dev->phys = "key";
     dev->dev.init_name = "yiyi_input";
     dev->open = input_open;
     dev->close = input_close;
 
 
-    err = input_register_device(dev);   
-    if(err)   
-    {   
-        printk(KERN_ERR "failed to register input device/n");  
+    err = input_register_device(dev);
+
+    if (err) {
+        printk(KERN_ERR "failed to register input device/n");
         input_free_device(dev);
     }
 
     printk("initialized\n");
-   
+
     init_timer(&timer);
     timer.expires = jiffies + HZ;
     timer.function = timer_funtion;
     add_timer(&timer);
 
-     return err;
+    return err;
 }
 
-  
-static void __exit dev_exit(void)
-{
-   input_unregister_device(dev);
-   del_timer(&timer);
+
+static void __exit dev_exit(void) {
+    input_unregister_device(dev);
+    del_timer(&timer);
 }
 
 

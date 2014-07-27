@@ -10,15 +10,13 @@
 
 #define MEMDEV_SIZE 4096
 
-int main(void)
-{
+int main(void) {
     int fd1, fd2, maxfdp, ret;
-    fd_set fds; 
+    fd_set fds;
     struct timeval tv;
     char buf[MEMDEV_SIZE];
 
-    if (-1==(fd1=open ("/dev/polldev", O_RDWR)))
-    {
+    if (-1 == (fd1 = open("/dev/polldev", O_RDWR))) {
         printf("open dev0 error\n");
         _exit(EXIT_FAILURE);
     }
@@ -30,25 +28,23 @@ int main(void)
     tv.tv_usec = 0;
     printf("Test for select(): ...\n");
 
-    while(1) 
-    {
+    while (1) {
         printf(" ==> select ...\n");
-        if (-1==(ret=select(fd1 + 1, &fds,NULL, NULL, &tv))) 
-        {
+
+        if (-1 == (ret = select(fd1 + 1, &fds, NULL, NULL, &tv))) {
             printf("select error\n");
             _exit(EXIT_FAILURE);
         }
-        if (0==ret) 
-        {
+
+        if (0 == ret) {
             printf("No data within 10s, exit\n");
             break;
-        }
-        else
-       {
-            
+        } else {
+
             FD_ZERO(&fds);
             FD_SET(fd1, &fds);
         }
     }
-	_exit(EXIT_SUCCESS);	
+
+    _exit(EXIT_SUCCESS);
 }

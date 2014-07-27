@@ -9,40 +9,36 @@
 
 
 //------------------------------------- main ---------------------------------------------
-int main(void)
-{
-        int fd;
-	int ret;
-	char *i;
-        int eint_number = 0;    
+int main(void) {
+    int fd;
+    int ret;
+    char* i;
+    int eint_number = 0;
 
-        printf("\nstart gpio_led_driver test\n\n");
+    printf("\nstart gpio_led_driver test\n\n");
 
 
-        fd = open(DEVICE_NAME, O_RDWR);
-	
-	printf("fd = %d\n",fd);
-	
+    fd = open(DEVICE_NAME, O_RDWR);
 
-        if (fd == -1)
-        {
-                printf("open device %s error\n",DEVICE_NAME);
-        }
-        else
-        {
-		while(1)
-		{	
-                        read(fd,&eint_number,sizeof(eint_number));
-                        printf("the number of an jian irq is %d \n",eint_number);
-			sleep(5);//等待1秒再做下一步操作
-			
+    printf("fd = %d\n", fd);
 
-		}
-	        // close 
-		ret = close(fd);
-		printf ("ret=%d\n",ret);
-		printf ("close gpio_led_driver test\n");
+
+    if (fd == -1) {
+        printf("open device %s error\n", DEVICE_NAME);
+    } else {
+        while (1) {
+            read(fd, &eint_number, sizeof(eint_number));
+            printf("the number of an jian irq is %d \n", eint_number);
+            sleep(5);//等待1秒再做下一步操作
+
+
         }
 
-        return 0;
+        // close
+        ret = close(fd);
+        printf("ret=%d\n", ret);
+        printf("close gpio_led_driver test\n");
+    }
+
+    return 0;
 }// end main

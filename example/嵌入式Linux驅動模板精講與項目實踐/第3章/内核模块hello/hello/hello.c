@@ -2,15 +2,13 @@
 #include <linux/kernel.h>
 
 
-static int __init my_driver_init(void)
-{       
+static int __init my_driver_init(void) {
     printk(" hello --->\n");
 
     return 0;
 }
 
-static void my_driver_exit(void)
-{
+static void my_driver_exit(void) {
     printk("byebye\n");
 }
 
