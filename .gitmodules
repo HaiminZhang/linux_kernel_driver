@@ -1,0 +1,3 @@
+[submodule "example/LDD3/ldd3-examples-3.x"]
+	path = example/LDD3/ldd3-examples-3.x
+	url = https://github.com/duxing2007/ldd3-examples-3.x
