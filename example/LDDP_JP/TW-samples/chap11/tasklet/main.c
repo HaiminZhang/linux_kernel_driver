@@ -14,46 +14,46 @@ struct tasklet_struct tasklet;
 
 void sample_tasklet(unsigned long data)
 {
-	printk("%s called (%ld, %ld, %ld)\n", __func__, 
-			in_irq(), in_softirq(), in_interrupt());
+    printk("%s called (%ld, %ld, %ld)\n", __func__,
+           in_irq(), in_softirq(), in_interrupt());
 }
 
 irqreturn_t sample_isr(int irq, void *dev_instance)
 {
-	if (printk_ratelimit()) {
-		printk("%s: irq %d (%ld, %ld, %ld)\n", __func__, irq,
-				in_irq(), in_softirq(), in_interrupt());
-		tasklet_schedule(&tasklet);
-	}
-	
-	return IRQ_NONE;
+    if (printk_ratelimit()) {
+        printk("%s: irq %d (%ld, %ld, %ld)\n", __func__, irq,
+               in_irq(), in_softirq(), in_interrupt());
+        tasklet_schedule(&tasklet);
+    }
+
+    return IRQ_NONE;
 }
 
 static int sample_init(void)
 {
-	int ret = 0;
+    int ret = 0;
 
-	printk("sample driver installed.\n");
+    printk("sample driver installed.\n");
 
-	tasklet_init(&tasklet, sample_tasklet, 0);
+    tasklet_init(&tasklet, sample_tasklet, 0);
 
-	ret = request_irq(IRQ_NUM, sample_isr, IRQF_SHARED, "sample", irq_dev_id);
-	if (ret) {
-		printk("request_irq() failed (%d)\n", ret);
-		tasklet_kill(&tasklet);
-		goto out;
-	}
+    ret = request_irq(IRQ_NUM, sample_isr, IRQF_SHARED, "sample", irq_dev_id);
+    if (ret) {
+        printk("request_irq() failed (%d)\n", ret);
+        tasklet_kill(&tasklet);
+        goto out;
+    }
 
 out:
-	return (ret);
+    return (ret);
 }
 
 static void sample_exit(void)
 {
-	printk("sample driver removed.\n");
+    printk("sample driver removed.\n");
 
-	tasklet_kill(&tasklet);
-	free_irq(IRQ_NUM, irq_dev_id);
+    tasklet_kill(&tasklet);
+    free_irq(IRQ_NUM, irq_dev_id);
 }
 
 module_init(sample_init);

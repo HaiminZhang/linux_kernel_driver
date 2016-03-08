@@ -2,18 +2,18 @@
 
 int main(void)
 {
-	int val, n;
-	int *p;
+    int val, n;
+    int *p;
 
-	val = 2008;
-	p = &val;
+    val = 2008;
+    p = &val;
 
-	n = *p;
-	n = *p; 
-	n = *p; 
+    n = *p;
+    n = *p;
+    n = *p;
 
-	printf("%d\n", n);
+    printf("%d\n", n);
 
-	return 0;
+    return 0;
 }
 

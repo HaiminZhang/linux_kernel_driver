@@ -14,53 +14,53 @@
 
 int main(void)
 {
-	int fd;
-	fd_set rfds;
-	struct timeval tv;
-	int retval;
-	unsigned char buf[64];
-	ssize_t sz;
-	int i;
+    int fd;
+    fd_set rfds;
+    struct timeval tv;
+    int retval;
+    unsigned char buf[64];
+    ssize_t sz;
+    int i;
 
-	fd = open(DEVFILE, O_RDWR);
-	if (fd == -1) {
-		perror("open");
-		exit(1);
-	}
+    fd = open(DEVFILE, O_RDWR);
+    if (fd == -1) {
+        perror("open");
+        exit(1);
+    }
 
 
-	do {
-		FD_ZERO(&rfds);
-		FD_SET(fd, &rfds);
-		tv.tv_sec = 5;  // timeout 5秒
-		tv.tv_usec = 0;
+    do {
+        FD_ZERO(&rfds);
+        FD_SET(fd, &rfds);
+        tv.tv_sec = 5;  // timeout 5秒
+        tv.tv_usec = 0;
 
-		printf("select() ...\n");
-		retval = select(fd + 1, &rfds, NULL, NULL, &tv);
-		if (retval == -1) {
-			perror("select");
-			break;
-		}
+        printf("select() ...\n");
+        retval = select(fd + 1, &rfds, NULL, NULL, &tv);
+        if (retval == -1) {
+            perror("select");
+            break;
+        }
 
         // printf("retval=%d\n", retval);
 
-		if (retval) {
-			break;
-		}
-	} while (retval == 0);   /* timeout elapsed */
+        if (retval) {
+            break;
+        }
+    } while (retval == 0);   /* timeout elapsed */
 
-	if (FD_ISSET(fd, &rfds)) {
-		printf("read() ...\n");
-		sz = read(fd, buf, sizeof(buf));
-		printf("read() %ld\n", sz);
-		for (i = 0 ; i < sz ; i++) {
-			printf("%02x ", buf[i]);
-		}
-		printf("\n");
-	}
+    if (FD_ISSET(fd, &rfds)) {
+        printf("read() ...\n");
+        sz = read(fd, buf, sizeof(buf));
+        printf("read() %ld\n", sz);
+        for (i = 0 ; i < sz ; i++) {
+            printf("%02x ", buf[i]);
+        }
+        printf("\n");
+    }
 
-	close(fd);
+    close(fd);
 
-	return 0;
+    return 0;
 }
 

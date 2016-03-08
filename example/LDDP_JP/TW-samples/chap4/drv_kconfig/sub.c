@@ -3,6 +3,6 @@
 
 void sub(void)
 {
-	printk("%s: sub() called\n", __func__);
+    printk("%s: sub() called\n", __func__);
 }
 

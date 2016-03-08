@@ -17,41 +17,41 @@
 
 int open_file(char *filename)
 {
-	int fd;
+    int fd;
 
-	fd = open(filename, O_RDWR);
-	if (fd == -1) {
-		perror("open");
-	}
-	return (fd);
+    fd = open(filename, O_RDWR);
+    if (fd == -1) {
+        perror("open");
+    }
+    return (fd);
 }
 
 void close_file(int fd)
 {
-	if (close(fd) != 0) {
-		perror("close");
-	}
+    if (close(fd) != 0) {
+        perror("close");
+    }
 }
 
 int main(void)
 {
-	int fd[DEVCOUNT];
-	int i;
-	char file[BUFSIZ];
+    int fd[DEVCOUNT];
+    int i;
+    char file[BUFSIZ];
 
-	for (i = 0 ; i < DEVCOUNT ; i++) {
-		snprintf(file, sizeof(file), "%s%d",DEVFILE, i);
-		printf("%s\n", file);
-		fd[i] = open_file(file);
-	}
+    for (i = 0 ; i < DEVCOUNT ; i++) {
+        snprintf(file, sizeof(file), "%s%d",DEVFILE, i);
+        printf("%s\n", file);
+        fd[i] = open_file(file);
+    }
 
-	sleep(5);
+    sleep(5);
 
-	for (i = 0 ; i < DEVCOUNT ; i++) {
-		printf("closing fd[%d]\n", i);
-		close_file(fd[i]);
-	}
+    for (i = 0 ; i < DEVCOUNT ; i++) {
+        printf("closing fd[%d]\n", i);
+        close_file(fd[i]);
+    }
 
-	return 0;
+    return 0;
 }
 

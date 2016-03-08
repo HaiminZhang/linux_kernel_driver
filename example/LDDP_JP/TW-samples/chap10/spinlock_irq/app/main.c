@@ -14,29 +14,29 @@
 
 int main(void)
 {
-	int fd;
-	int i;
-	ssize_t size;
-	char buf[32];
+    int fd;
+    int i;
+    ssize_t size;
+    char buf[32];
 
-	fd = open(DEVFILE, O_RDWR);
-	if (fd == -1) {
-		perror("open");
-		exit(1);
-	}
+    fd = open(DEVFILE, O_RDWR);
+    if (fd == -1) {
+        perror("open");
+        exit(1);
+    }
 
-	for ( ;; ) {
-		size = read(fd, buf, sizeof(buf));
-		for (i = 0 ; i < size ; i++) {
-			printf("%02x ", buf[i] & 0xff);
-		}
-		printf("\n");
+    for ( ;; ) {
+        size = read(fd, buf, sizeof(buf));
+        for (i = 0 ; i < size ; i++) {
+            printf("%02x ", buf[i] & 0xff);
+        }
+        printf("\n");
 
-		sleep(3);
-	}
+        sleep(3);
+    }
 
-	close(fd);
+    close(fd);
 
-	return 0;
+    return 0;
 }
 

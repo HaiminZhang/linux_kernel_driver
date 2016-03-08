@@ -5,18 +5,18 @@ MODULE_LICENSE("Dual BSD/GPL");
 
 static int sample_init(void)
 {
-	printk("driver loaded: %lu\n", jiffies);
+    printk("driver loaded: %lu\n", jiffies);
 
-	ssleep(10);   /* sleep for 10 seconds. */
+    ssleep(10);   /* sleep for 10 seconds. */
 
-	printk("%lu (HZ %d)\n", jiffies, HZ);
-		
-	return 0;
+    printk("%lu (HZ %d)\n", jiffies, HZ);
+
+    return 0;
 }
 
 static void sample_exit(void)
 {
-	printk(KERN_ALERT "driver unloaded\n");
+    printk(KERN_ALERT "driver unloaded\n");
 }
 
 module_init(sample_init);

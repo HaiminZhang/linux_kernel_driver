@@ -11,22 +11,22 @@ void *memptr;
 
 static int sample_init(void)
 {
-	void *ptr;
+    void *ptr;
 
-	printk("sample driver installed.\n");
+    printk("sample driver installed.\n");
 
-	memptr = ptr = kmalloc(2, GFP_KERNEL);
-	printk("ptr %p\n", ptr);
+    memptr = ptr = kmalloc(2, GFP_KERNEL);
+    printk("ptr %p\n", ptr);
 
-	return 0;
+    return 0;
 }
 
 static void sample_exit(void)
 {
-	printk("sample driver removed.\n");
+    printk("sample driver removed.\n");
 
-	kfree(memptr);
-	kfree(memptr);   /* double free! */
+    kfree(memptr);
+    kfree(memptr);   /* double free! */
 }
 
 module_init(sample_init);

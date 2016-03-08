@@ -16,32 +16,32 @@
 
 int main(void)
 {
-	int fd;
-	unsigned char buf[64];
-	ssize_t sz;
-	int i;
+    int fd;
+    unsigned char buf[64];
+    ssize_t sz;
+    int i;
 
-	fd = open(DEVFILE, O_RDWR | O_NONBLOCK);   /* non-blocking mode */
-	if (fd == -1) {
-		perror("open");
-		exit(1);
-	}
+    fd = open(DEVFILE, O_RDWR | O_NONBLOCK);   /* non-blocking mode */
+    if (fd == -1) {
+        perror("open");
+        exit(1);
+    }
 
-	printf("read() ...\n");
-	sz = read(fd, buf, sizeof(buf));
-	printf("read() %d\n", sz);
-	if (sz > 0) {
-		for (i = 0 ; i < sz ; i++) {
-			printf("%02x ", buf[i]);
-		}
-		printf("\n");
-	} else {
-		printf("errno %d\n", errno);
-		perror("read");
-	}
+    printf("read() ...\n");
+    sz = read(fd, buf, sizeof(buf));
+    printf("read() %d\n", sz);
+    if (sz > 0) {
+        for (i = 0 ; i < sz ; i++) {
+            printf("%02x ", buf[i]);
+        }
+        printf("\n");
+    } else {
+        printf("errno %d\n", errno);
+        perror("read");
+    }
 
-	close(fd);
+    close(fd);
 
-	return 0;
+    return 0;
 }
 

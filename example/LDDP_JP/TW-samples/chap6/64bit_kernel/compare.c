@@ -4,16 +4,16 @@
 
 int main(void)
 {
-	unsigned int n = 100;
-	long l = -1;
+    unsigned int n = 100;
+    long l = -1;
 
-	printf("sizeof(long) %d\n", sizeof(long));
+    printf("sizeof(long) %d\n", sizeof(long));
 
-	if (n > l)
-		printf("%u > %ld\n", n, l);
-	else
-		printf("%u <= %ld\n", n, l);
+    if (n > l)
+        printf("%u > %ld\n", n, l);
+    else
+        printf("%u <= %ld\n", n, l);
 
-	return 0;
+    return 0;
 }
 

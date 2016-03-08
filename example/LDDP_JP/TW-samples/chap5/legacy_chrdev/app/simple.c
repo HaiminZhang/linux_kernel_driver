@@ -16,32 +16,32 @@
 
 int open_file(void)
 {
-	int fd;
+    int fd;
 
-	fd = open(DEVFILE, O_RDWR);
-	if (fd == -1) {
-		perror("open");
-	}
-	return (fd);
+    fd = open(DEVFILE, O_RDWR);
+    if (fd == -1) {
+        perror("open");
+    }
+    return (fd);
 }
 
 void close_file(int fd)
 {
-	if (close(fd) != 0) {
-		perror("close");
-	}
+    if (close(fd) != 0) {
+        perror("close");
+    }
 }
 
 int main(void)
 {
-	int fd;
+    int fd;
 
-	fd = open_file();
+    fd = open_file();
 
-	sleep(20);
+    sleep(20);
 
-	close_file(fd);
+    close_file(fd);
 
-	return 0;
+    return 0;
 }
 

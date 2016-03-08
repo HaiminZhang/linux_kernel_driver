@@ -4,24 +4,24 @@
 
 void sub(void *buf)
 {
-	int n = 0xdeadbeef;
+    int n = 0xdeadbeef;
 
-	memcpy(buf, &n, sizeof(buf));
+    memcpy(buf, &n, sizeof(buf));
 }
 
 int main(void)
 {
-	unsigned char buf[8];
-	int i;
+    unsigned char buf[8];
+    int i;
 
-	memset(buf, 0xff, sizeof(buf));
+    memset(buf, 0xff, sizeof(buf));
 
-	sub(buf);
+    sub(buf);
 
-	for (i = 0 ; i < sizeof(buf) ; i++) {
-		printf("%02x\n", buf[i]);
-	}
+    for (i = 0 ; i < sizeof(buf) ; i++) {
+        printf("%02x\n", buf[i]);
+    }
 
-	return 0;
+    return 0;
 }
 

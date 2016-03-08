@@ -8,18 +8,18 @@ extern wait_queue_head_t yutaka_sample_wait;
 
 static int sample_init(void)
 {
-	wait_queue_head_t *wq = &yutaka_sample_wait;
+    wait_queue_head_t *wq = &yutaka_sample_wait;
 
-	printk("driver loaded\n");
+    printk("driver loaded\n");
 
-	wake_up(wq);
-		
-	return 0;
+    wake_up(wq);
+
+    return 0;
 }
 
 static void sample_exit(void)
 {
-	printk(KERN_ALERT "driver unloaded\n");
+    printk(KERN_ALERT "driver unloaded\n");
 }
 
 module_init(sample_init);

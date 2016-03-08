@@ -16,39 +16,39 @@
 
 int open_file(void)
 {
-	int fd;
+    int fd;
 
-	fd = open(DEVFILE, O_RDWR);
-	if (fd == -1) {
-		perror("open");
-	}
-	return (fd);
+    fd = open(DEVFILE, O_RDWR);
+    if (fd == -1) {
+        perror("open");
+    }
+    return (fd);
 }
 
 void close_file(int fd)
 {
-	printf("%s called\n", __func__);
-	if (close(fd) != 0) {
-		perror("close");
-	}
+    printf("%s called\n", __func__);
+    if (close(fd) != 0) {
+        perror("close");
+    }
 }
 
 int main(void)
 {
-	int fd;
-	int status;
+    int fd;
+    int status;
 
-	fd = open_file();
+    fd = open_file();
 
-	if (fork() == 0) {  /* child process */
-		sleep(3);
-		close_file(fd);
-		exit(1);
-	}
-	wait(&status);
-	sleep(10);
-	close_file(fd);
+    if (fork() == 0) {  /* child process */
+        sleep(3);
+        close_file(fd);
+        exit(1);
+    }
+    wait(&status);
+    sleep(10);
+    close_file(fd);
 
-	return 0;
+    return 0;
 }
 

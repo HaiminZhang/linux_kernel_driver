@@ -2,11 +2,11 @@
 
 int main()
 {
-	unsigned long long val = 0;
+    unsigned long long val = 0;
 
-	val++;
-	printf("%lld\n", val);
+    val++;
+    printf("%lld\n", val);
 
-	return 0;
+    return 0;
 }
 

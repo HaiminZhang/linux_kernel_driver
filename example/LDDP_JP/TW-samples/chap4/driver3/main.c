@@ -7,16 +7,16 @@ extern void sub(void);
 
 static int hello_init(void)
 {
-	printk(KERN_ALERT "driver loaded\n");
+    printk(KERN_ALERT "driver loaded\n");
 
-	sub();
-		
-	return 0;
+    sub();
+
+    return 0;
 }
 
 static void hello_exit(void)
 {
-	printk(KERN_ALERT "driver unloaded\n");
+    printk(KERN_ALERT "driver unloaded\n");
 }
 
 module_init(hello_init);

@@ -9,31 +9,31 @@ static struct timer_list tickfn;
 
 static void sample_timeout(unsigned long arg)
 {
-	struct timer_list *ptr = (struct timer_list *)arg;
+    struct timer_list *ptr = (struct timer_list *)arg;
 
-	printk("ptr %p (%s)\n", ptr, __func__);
+    printk("ptr %p (%s)\n", ptr, __func__);
 }
 
 static int sample_init(void)
 {
-	printk("driver loaded: %p\n", &tickfn);
+    printk("driver loaded: %p\n", &tickfn);
 
-	init_timer(&tickfn);
-	tickfn.function = sample_timeout;
-	tickfn.data = (unsigned long)&tickfn;
-	tickfn.expires = jiffies + TIMEOUT_VALUE;
-	add_timer(&tickfn);
-		
-	return 0;
+    init_timer(&tickfn);
+    tickfn.function = sample_timeout;
+    tickfn.data = (unsigned long)&tickfn;
+    tickfn.expires = jiffies + TIMEOUT_VALUE;
+    add_timer(&tickfn);
+
+    return 0;
 }
 
 static void sample_exit(void)
 {
-	int ret;
+    int ret;
 
-	ret = del_timer_sync(&tickfn);
+    ret = del_timer_sync(&tickfn);
 
-	printk(KERN_ALERT "driver unloaded (%d)\n", ret);
+    printk(KERN_ALERT "driver unloaded (%d)\n", ret);
 }
 
 module_init(sample_init);

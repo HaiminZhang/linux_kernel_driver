@@ -9,17 +9,17 @@ MODULE_LICENSE("Dual BSD/GPL");
 
 static int sample_init(void)
 {
-	volatile int n = 0;
+    volatile int n = 0;
 
-	n++;
-	printk("n %d\n", n);
+    n++;
+    printk("n %d\n", n);
 
-	return 0;
+    return 0;
 }
 
 static void sample_exit(void)
 {
-	printk("sample driver removed.\n");
+    printk("sample driver removed.\n");
 }
 
 module_init(sample_init);

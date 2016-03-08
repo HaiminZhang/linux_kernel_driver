@@ -21,67 +21,67 @@ module_param(devone_major, uint, 0);
 
 static int devone_open(struct inode *inode, struct file *file)
 {
-	printk("%s: major %d minor %d (pid %d)\n", __func__,
-			imajor(inode),
-			iminor(inode),
-			current->pid
-		  );
+    printk("%s: major %d minor %d (pid %d)\n", __func__,
+           imajor(inode),
+           iminor(inode),
+           current->pid
+          );
 
-	inode->i_private = inode;
-	file->private_data = file;
+    inode->i_private = inode;
+    file->private_data = file;
 
-	printk("  i_private=%p private_data=%p\n", 
-			inode->i_private, file->private_data);
+    printk("  i_private=%p private_data=%p\n",
+           inode->i_private, file->private_data);
 
-	return 0;     /* success */
+    return 0;     /* success */
 }
 
 static int devone_close(struct inode *inode, struct file *file)
 {
-	printk("%s: major %d minor %d (pid %d)\n", __func__,
-			imajor(inode),
-			iminor(inode),
-			current->pid
-		  );
-	printk("  i_private=%p private_data=%p\n", 
-			inode->i_private, file->private_data);
+    printk("%s: major %d minor %d (pid %d)\n", __func__,
+           imajor(inode),
+           iminor(inode),
+           current->pid
+          );
+    printk("  i_private=%p private_data=%p\n",
+           inode->i_private, file->private_data);
 
-	return 0;     /* success */
+    return 0;     /* success */
 }
 
 struct file_operations devone_fops = {
-	.open = devone_open,
-	.release = devone_close,
+    .open = devone_open,
+    .release = devone_close,
 };
 
 static int devone_init(void)
 {
-	int major;
-	int ret = 0;
+    int major;
+    int ret = 0;
 
-	major = register_chrdev(devone_major, DRIVER_NAME, &devone_fops);
-	if ((devone_major > 0 && major != 0) ||        /* static allocation */
-			(devone_major == 0 && major < 0) ||    /* dynamic allocation */
-			major < 0) {                           /* else */
-		printk("%s driver registration error\n", DRIVER_NAME);
-		ret = major;
-		goto error;
-	}
-	if (devone_major == 0) {   /* dynamic allocation */
-		devone_major = major;
-	}
+    major = register_chrdev(devone_major, DRIVER_NAME, &devone_fops);
+    if ((devone_major > 0 && major != 0) ||        /* static allocation */
+            (devone_major == 0 && major < 0) ||    /* dynamic allocation */
+            major < 0) {                           /* else */
+        printk("%s driver registration error\n", DRIVER_NAME);
+        ret = major;
+        goto error;
+    }
+    if (devone_major == 0) {   /* dynamic allocation */
+        devone_major = major;
+    }
 
-	printk("%s driver(major %d) installed.\n", DRIVER_NAME, devone_major);
+    printk("%s driver(major %d) installed.\n", DRIVER_NAME, devone_major);
 
 error:
-	return (ret);
+    return (ret);
 }
 
 static void devone_exit(void)
 {
-	unregister_chrdev(devone_major, DRIVER_NAME);
+    unregister_chrdev(devone_major, DRIVER_NAME);
 
-	printk("%s driver removed.\n", DRIVER_NAME);
+    printk("%s driver removed.\n", DRIVER_NAME);
 
 }
 

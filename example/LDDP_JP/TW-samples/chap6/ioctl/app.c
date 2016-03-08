@@ -17,64 +17,64 @@
 
 void read_buffer(int fd)
 {
-	unsigned char buf[64];
-	int ret;
-	int i;
+    unsigned char buf[64];
+    int ret;
+    int i;
 
-	ret = read(fd, buf, sizeof(buf));
-	if (ret == -1) {
-		perror("read");
-	} 
-	for (i = 0 ; i < ret ; i++) {
-		printf("%02x ", buf[i]);
-	}
-	printf("\n");
+    ret = read(fd, buf, sizeof(buf));
+    if (ret == -1) {
+        perror("read");
+    }
+    for (i = 0 ; i < ret ; i++) {
+        printf("%02x ", buf[i]);
+    }
+    printf("\n");
 }
 
 int main(void)
 {
-	struct ioctl_cmd cmd;
-	int ret;
-	int fd;
+    struct ioctl_cmd cmd;
+    int ret;
+    int fd;
 
-	fd = open(DEVFILE, O_RDWR);
-	if (fd == -1) {
-		perror("open");
-		exit(1);
-	}
+    fd = open(DEVFILE, O_RDWR);
+    if (fd == -1) {
+        perror("open");
+        exit(1);
+    }
 
-	memset(&cmd, 0, sizeof(cmd));
-	ret = ioctl(fd, IOCTL_VALGET, &cmd);
-	if (ret == -1) {
-		printf("errno %d\n", errno);
-		perror("ioctl");
-	}
-	printf("val %d\n", cmd.val);
+    memset(&cmd, 0, sizeof(cmd));
+    ret = ioctl(fd, IOCTL_VALGET, &cmd);
+    if (ret == -1) {
+        printf("errno %d\n", errno);
+        perror("ioctl");
+    }
+    printf("val %d\n", cmd.val);
 
-	// read buffer
-	read_buffer(fd);
+    // read buffer
+    read_buffer(fd);
 
-	memset(&cmd, 0, sizeof(cmd));
-	cmd.val = 0xCC;
-	ret = ioctl(fd, IOCTL_VALSET, &cmd);
-	if (ret == -1) {
-		printf("errno %d\n", errno);
-		perror("ioctl");
-	}
+    memset(&cmd, 0, sizeof(cmd));
+    cmd.val = 0xCC;
+    ret = ioctl(fd, IOCTL_VALSET, &cmd);
+    if (ret == -1) {
+        printf("errno %d\n", errno);
+        perror("ioctl");
+    }
 
-	// read buffer
-	read_buffer(fd);
+    // read buffer
+    read_buffer(fd);
 
-	memset(&cmd, 0, sizeof(cmd));
-	ret = ioctl(fd, IOCTL_VALGET, &cmd);
-	if (ret == -1) {
-		printf("errno %d\n", errno);
-		perror("ioctl");
-	}
-	printf("val %d\n", cmd.val);
+    memset(&cmd, 0, sizeof(cmd));
+    ret = ioctl(fd, IOCTL_VALGET, &cmd);
+    if (ret == -1) {
+        printf("errno %d\n", errno);
+        perror("ioctl");
+    }
+    printf("val %d\n", cmd.val);
 
-	close(fd);
+    close(fd);
 
-	return 0;
+    return 0;
 }
 

@@ -10,26 +10,26 @@ MODULE_LICENSE("Dual BSD/GPL");
 
 static int sample_init(void)
 {
-	void *ptr, *palign;
-	int order = 1;
+    void *ptr, *palign;
+    int order = 1;
 
-	printk(KERN_ALERT "sample driver installed.\n");
+    printk(KERN_ALERT "sample driver installed.\n");
 
-	/* allocate two pages */
-	ptr = (void *)__get_free_pages(GFP_KERNEL, order);
-	printk("__get_free_pages %p\n", ptr);
+    /* allocate two pages */
+    ptr = (void *)__get_free_pages(GFP_KERNEL, order);
+    printk("__get_free_pages %p\n", ptr);
 
-	palign = (void *)( ((unsigned long)ptr + PAGE_SIZE - 1) & ~(PAGE_SIZE - 1) );
-	printk("aligned pointer %p\n", palign);
+    palign = (void *)( ((unsigned long)ptr + PAGE_SIZE - 1) & ~(PAGE_SIZE - 1) );
+    printk("aligned pointer %p\n", palign);
 
-	free_pages((unsigned long)ptr, order);
+    free_pages((unsigned long)ptr, order);
 
-	return 0;
+    return 0;
 }
 
 static void sample_exit(void)
 {
-	printk(KERN_ALERT "sample driver removed.\n");
+    printk(KERN_ALERT "sample driver removed.\n");
 }
 
 module_init(sample_init);

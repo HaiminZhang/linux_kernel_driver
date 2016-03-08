@@ -8,19 +8,19 @@ void external_sub(void) __attribute__ ((unused));
 
 void external_sub(void)
 {
-	mii_link_ok(NULL);
+    mii_link_ok(NULL);
 }
 
 static int hello_init(void)
 {
-	printk(KERN_ALERT "driver loaded\n");
+    printk(KERN_ALERT "driver loaded\n");
 
-	return 0;
+    return 0;
 }
 
 static void hello_exit(void)
 {
-	printk(KERN_ALERT "driver unloaded\n");
+    printk(KERN_ALERT "driver unloaded\n");
 }
 
 module_init(hello_init);

@@ -10,22 +10,22 @@ MODULE_LICENSE("Dual BSD/GPL");
 
 static int sample_init(void)
 {
-	char *reg;
+    char *reg;
 
-	printk("sample driver installed.\n");
+    printk("sample driver installed.\n");
 
-	reg = ioremap_nocache(0xFEC00000, 4);
-	if (reg != NULL) {
-		printk("%x\n", *reg);
-		iounmap(reg);
-	}
+    reg = ioremap_nocache(0xFEC00000, 4);
+    if (reg != NULL) {
+        printk("%x\n", *reg);
+        iounmap(reg);
+    }
 
-	return 0;
+    return 0;
 }
 
 static void sample_exit(void)
 {
-	printk("sample driver removed.\n");
+    printk("sample driver removed.\n");
 }
 
 module_init(sample_init);

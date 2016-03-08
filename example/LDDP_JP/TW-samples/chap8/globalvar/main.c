@@ -15,14 +15,14 @@ EXPORT_SYMBOL(g_sample_counter4);
 
 static int sample_init(void)
 {
-	printk("sample driver installed.\n");
+    printk("sample driver installed.\n");
 
-	return 0;
+    return 0;
 }
 
 static void sample_exit(void)
 {
-	printk("sample driver removed.\n");
+    printk("sample driver removed.\n");
 }
 
 module_init(sample_init);

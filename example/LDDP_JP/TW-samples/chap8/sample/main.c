@@ -14,18 +14,18 @@ void sub(void)
 
 static int sample_init(void)
 {
-	printk("sample driver installed.\n");
+    printk("sample driver installed.\n");
 
-	printk("%d\n", sizeof(struct thread_info));
+    printk("%d\n", sizeof(struct thread_info));
 
-	sub();
+    sub();
 
-	return 0;
+    return 0;
 }
 
 static void sample_exit(void)
 {
-	printk("sample driver removed.\n");
+    printk("sample driver removed.\n");
 }
 
 module_init(sample_init);

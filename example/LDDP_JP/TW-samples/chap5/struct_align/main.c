@@ -11,7 +11,7 @@ MODULE_LICENSE("Dual BSD/GPL");
 
 #pragma pack(1)
 struct data {
-	char num;
+    char num;
     int size;
     void *ptr;
 };
@@ -19,35 +19,35 @@ struct data {
 
 static int sample_init(void)
 {
-	struct data s;
-	void *p, *ptr;
-	unsigned long val;
+    struct data s;
+    void *p, *ptr;
+    unsigned long val;
 
-	printk(KERN_ALERT "sample driver installed.\n");
+    printk(KERN_ALERT "sample driver installed.\n");
 
-	printk("sizeof %d\n"
-		   "  num %d\n"
-		   "  size %d\n"
-		   "  ptr %d\n",
-		   sizeof(struct data),
-		   offsetof(struct data, num),
-		   offsetof(struct data, size),
-		   offsetof(struct data, ptr));
+    printk("sizeof %d\n"
+           "  num %d\n"
+           "  size %d\n"
+           "  ptr %d\n",
+           sizeof(struct data),
+           offsetof(struct data, num),
+           offsetof(struct data, size),
+           offsetof(struct data, ptr));
 
-	memset(&s, 'C', sizeof(s));
+    memset(&s, 'C', sizeof(s));
 
-	p = &s.ptr;
-	printk("%p %p\n", &s.ptr, p);
+    p = &s.ptr;
+    printk("%p %p\n", &s.ptr, p);
 
-	ptr = get_unaligned(&s.ptr);
-	printk("%p\n", ptr);
+    ptr = get_unaligned(&s.ptr);
+    printk("%p\n", ptr);
 
-	return 0;
+    return 0;
 }
 
 static void sample_exit(void)
 {
-	printk(KERN_ALERT "sample driver removed.\n");
+    printk(KERN_ALERT "sample driver removed.\n");
 }
 
 module_init(sample_init);

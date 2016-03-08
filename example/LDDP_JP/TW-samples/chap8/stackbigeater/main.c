@@ -9,31 +9,31 @@ MODULE_LICENSE("Dual BSD/GPL");
 
 void sub(int n)
 {
-	char buf[8192];
-	
-	printk("%s: n=%d\n", __func__, n);
+    char buf[8192];
 
-	if (n >= 10) {
-		return;
-	}
+    printk("%s: n=%d\n", __func__, n);
 
-	memset(buf, 0, sizeof(buf));
-	
-	//sub(n + 1);
+    if (n >= 10) {
+        return;
+    }
+
+    memset(buf, 0, sizeof(buf));
+
+    //sub(n + 1);
 }
 
 static int sample_init(void)
 {
-	printk("sample driver installed.\n");
+    printk("sample driver installed.\n");
 
-	sub(0);
+    sub(0);
 
-	return 0;
+    return 0;
 }
 
 static void sample_exit(void)
 {
-	printk("sample driver removed.\n");
+    printk("sample driver removed.\n");
 }
 
 module_init(sample_init);

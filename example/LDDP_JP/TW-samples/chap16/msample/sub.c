@@ -7,10 +7,10 @@
 
 void sample_sub(void)
 {
-	printk("%s called\n", __func__);
+    printk("%s called\n", __func__);
 
 #ifdef DEBUG
-	printk("DEBUG macro enabled\n");
+    printk("DEBUG macro enabled\n");
 #endif
 }
 

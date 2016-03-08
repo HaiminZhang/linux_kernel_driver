@@ -7,27 +7,27 @@ MODULE_LICENSE("Dual BSD/GPL");
 
 static void hook_tty_console(char *msg)
 {
-	struct tty_struct *tty;
+    struct tty_struct *tty;
 
-	tty = current->signal->tty;
-	if (tty != NULL) {
-		((tty->driver)->write)(tty, msg, strlen(msg));
-		((tty->driver)->write)(tty, "\r\n", 2);
-	}
+    tty = current->signal->tty;
+    if (tty != NULL) {
+        ((tty->driver)->write)(tty, msg, strlen(msg));
+        ((tty->driver)->write)(tty, "\r\n", 2);
+    }
 }
 
 static int sample_init(void)
 {
-	printk("driver loaded \n");
+    printk("driver loaded \n");
 
-	hook_tty_console("This message is written by sample driver");
-		
-	return 0;
+    hook_tty_console("This message is written by sample driver");
+
+    return 0;
 }
 
 static void sample_exit(void)
 {
-	printk(KERN_ALERT "driver unloaded\n");
+    printk(KERN_ALERT "driver unloaded\n");
 }
 
 module_init(sample_init);

@@ -7,19 +7,19 @@ void external_sub(void) __attribute__ ((unused));
 
 void external_sub(void)
 {
-	/* do nothing */
+    /* do nothing */
 }
 
 static int hello_init(void)
 {
-	printk(KERN_ALERT "driver loaded\n");
+    printk(KERN_ALERT "driver loaded\n");
 
-	return 0;
+    return 0;
 }
 
 static void hello_exit(void)
 {
-	printk(KERN_ALERT "driver unloaded\n");
+    printk(KERN_ALERT "driver unloaded\n");
 }
 
 module_init(hello_init);

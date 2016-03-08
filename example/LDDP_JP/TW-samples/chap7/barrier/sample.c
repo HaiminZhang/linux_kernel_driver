@@ -4,12 +4,12 @@ int a, b, c;
 
 int main(void)
 {
-	a = 10;
-	c = 0;
-	b = a;
+    a = 10;
+    c = 0;
+    b = a;
 
-	printf("%d, %d, %d\n", a, b, c);
+    printf("%d, %d, %d\n", a, b, c);
 
-	return 0;
+    return 0;
 }
 

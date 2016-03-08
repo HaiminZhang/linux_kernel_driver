@@ -14,56 +14,56 @@
 
 int main(void)
 {
-	int fd;
-	fd_set rfds;
-	struct timeval tv;
-	int retval;
-	unsigned char buf[64];
-	ssize_t sz;
-	int i;
+    int fd;
+    fd_set rfds;
+    struct timeval tv;
+    int retval;
+    unsigned char buf[64];
+    ssize_t sz;
+    int i;
 
-	fd = open(DEVFILE, O_RDWR);
-	if (fd == -1) {
-		perror("open");
-		exit(1);
-	}
+    fd = open(DEVFILE, O_RDWR);
+    if (fd == -1) {
+        perror("open");
+        exit(1);
+    }
 
-	FD_ZERO(&rfds);
-	FD_SET(fd, &rfds);
-	tv.tv_sec = 5;
-	tv.tv_usec = 0;
+    FD_ZERO(&rfds);
+    FD_SET(fd, &rfds);
+    tv.tv_sec = 5;
+    tv.tv_usec = 0;
 
-	do {
-		printf("select() ...\n");
-		retval = select(fd + 1, &rfds, NULL, NULL, &tv);
-		if (retval == -1) {
-			perror("select");
-			break;
-		}
+    do {
+        printf("select() ...\n");
+        retval = select(fd + 1, &rfds, NULL, NULL, &tv);
+        if (retval == -1) {
+            perror("select");
+            break;
+        }
 
-		if (retval) {
-			break;
-		}
+        if (retval) {
+            break;
+        }
 
-		/* reset */
-		FD_ZERO(&rfds);
-		FD_SET(fd, &rfds);
-		tv.tv_sec = 5;
-		tv.tv_usec = 0;
-	} while (retval == 0);   /* timeout elapsed */
+        /* reset */
+        FD_ZERO(&rfds);
+        FD_SET(fd, &rfds);
+        tv.tv_sec = 5;
+        tv.tv_usec = 0;
+    } while (retval == 0);   /* timeout elapsed */
 
-	if (FD_ISSET(fd, &rfds)) {
-		printf("read() ...\n");
-		sz = read(fd, buf, sizeof(buf));
-		printf("read() %d\n", sz);
-		for (i = 0 ; i < sz ; i++) {
-			printf("%02x ", buf[i]);
-		}
-		printf("\n");
-	}
+    if (FD_ISSET(fd, &rfds)) {
+        printf("read() ...\n");
+        sz = read(fd, buf, sizeof(buf));
+        printf("read() %d\n", sz);
+        for (i = 0 ; i < sz ; i++) {
+            printf("%02x ", buf[i]);
+        }
+        printf("\n");
+    }
 
-	close(fd);
+    close(fd);
 
-	return 0;
+    return 0;
 }
 
