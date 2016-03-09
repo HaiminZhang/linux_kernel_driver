@@ -1,4 +1,4 @@
-obj-m += gnKernel.o
+#obj-m += gnKernel.o
 #obj-m += udpRecvCallback.o
 #obj-m += udpSend.o
 #obj-m += ana_packet.o
@@ -12,7 +12,7 @@ obj-m += gnKernel.o
 #obj-m += cdev.o
 #obj-m += ioctl.o
 #obj-m += signal_kernel.o
-#obj-m += mmap_simple_kernel.o
+obj-m += mmap_simple_kernel.o
 #obj-m += sysctl.o
 
 all:
